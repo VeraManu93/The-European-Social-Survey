@@ -1,0 +1,193 @@
+---
+title: "Statement Assignment 2"
+Dataset: The European Social Survey
+---
+
+1.  How many and which countries participated in all 11 rounds?
+
+    Answer: 15 countries have participated in all 11 rounds.
+
+    1.  Belgium
+
+    2.  Finland
+
+    3.  France
+
+    4.  Germany
+
+    5.  Hungary
+
+    6.  Ireland
+
+    7.  Netherlands
+
+    8.  Norway
+
+    9.  Poland
+
+    10. Portugal
+
+    11. Slovenia
+
+    12. Spain
+
+    13. Sweden
+
+    14. Switzerland
+
+    15. United Kingdom
+
+    b\. How many and which countries participated in the most recent round?
+
+    Answer: 31 countries participated in the most recent round.
+
+    1.  Austria
+
+    2.  Belgium
+
+    3.  Bulgaria
+
+    4.  Croatia
+
+    5.  Cyprus
+
+    6.  Czechia
+
+    7.  Estonia
+
+    8.  Finland
+
+    9.  France
+
+    10. Germany
+
+    11. Greece
+
+    12. Hungary
+
+    13. Iceland
+
+    14. Ireland
+
+    15. Israel
+
+    16. Italy
+
+    17. Latvia
+
+    18. Lithuania
+
+    19. Montenegro
+
+    20. Netherlands
+
+    21. Norway
+
+    22. Poland
+
+    23. Portugal
+
+    24. Serbia
+
+    25. Slovak Republic
+
+    26. Slovenia
+
+    27. Spain
+
+    28. Sweden
+
+    29. Switzerland
+
+    30. Ukraine
+
+    31. United Kingdom
+
+    <!-- -->
+
+    2.  Which Variables did you choose?
+
+    Answer:
+
+    a\. Media use and trust – Most people can be trusted or you can't be too careful (imbgeco).
+
+    b\. Politics – Immigration bad or good for country's economy (ppltrst).
+
+<!-- -->
+
+3.  Perform linear regressions of each dependent variable using only the essround variable as the independent variable. Based on this, determine whether there would be a tendency for each selected dependent variable to increase or decrease in the future (i.e. for the next ESS round, number 12).
+
+```         
+As the ESS rounds proceed, opinions of immigration's economic impact (imbgeco) grow somewhat more negative (0.0709 each round, p \< 0.001), but trust in people (ppltrst) improves slightly (0.0204 per round, p \< 0.001). This implies a gradual reduction in positive attitudes toward immigration's economic advantages and a little increase in trust levels over time, including in ESS round 12.
+```
+
+4.  Repeat the analysis performed in item 3, considering exclusively the data from each of the two previously chosen countries. Is there any difference in this regard? In other words, what differences are there between the trends in these countries?
+
+```         
+i\. France's economic perspective (imbgeco) is increasing with time (0.0976 per round, p \< 2.2e -16), whereas Finland's confidence in people (ppltrst) is also improving, but at a slower rate (0.0544 per round, p \< 2.2e -16). In both situations, time has a modest explanatory power (R\^2 = 1.87% in France and 0.8% in Finland), indicating that other factors play a larger role. The tendency is higher in France (t = 19.88) than in Finland (t = 12.97), showing a more rapid growth in economic perception than trust. \
+```
+
+5.  Repeat the analysis performed in item 3, considering exclusively the data from the 2 most recent ESS rounds. What differences are there between the trends in this case, compared to those obtained from the data from all rounds?
+
+```         
+i\. Economic perception (imbgeco-France) improved by 0.0976 every round (p \< 2.2e-16), with 1.87% variation (R\^2 = 0.01869).\
+ ii. Trust in people (ppltrst- Finland) increased by 0.0544 every round (p \< 2.2e-16), with a lesser impact (R\^2 = 0.008).
+
+\
+During recent rounds:\
+Economic impression is still increasing, albeit at a somewhat greater pace (0.11808 per round, p = 0.0406), with R\^2 = 0.00063, 0.06%. \
+Trust in individuals has decreased slightly (-0.0323 each round), although the difference is not statistically significant (p = 0.566, R\^2 = 0).\
+\
+```
+
+6.  Perform linear regressions of each dependent variable with hhmmb, agea, eduyrs and essround as independent variables. Try to improve the models obtained by removing some variables as well as by adding new variables constructed from the original ones (e.g., calculating an individual's body mass index from their weight and height), as exemplified in the course material. Explain each step of this process.
+
+I started my analysis by creating a simple multiple linear regression model with the following independent variables: hhmmb, agea, eduyrs, and essround. The dependent variable in this model was imbgeco. When I ran this initial model, the results revealed that all variables, except hhmmb, had a significant impact on the dependent variable, imbgeco, according to their p-values.
+
+In this case, the Intercept had a very significant p-value (\<2e-16), while the coefficient of hhmmb was positive, with an estimate of 0.015, despite a p-value of 0.088, somewhat over the conventional significance threshold of 0.05. Agea, eduyrs, and essround had very significant p-values (all \< 2e-16), with eduyrs exhibiting the highest coefficient of 0.1614976, indicating a strong positive connection with imbgeco.
+
+At this phase, the model's R-squared value was 0.08599, indicating that these independent variables explained only about 8.6% of the variability in imbgeco. Given the low R-squared, I believed there was space for improvement by including or eliminating variables to enhance the model.
+
+Following that, I ran a second model, this time predicting ppltrst (trust in people), with hhmmb, agea, education, and environment as independent variables. When reviewing the findings, I saw that hhmmb had a non-significant p-value of 0.125, indicating its impact on ppltrst was small. However, agea and eduyrs remained very significant, with p-values \< 2e-16. However, essround was not significant this time (p=0.423), indicating that it did not help in explaining ppltrst. This model has a low R-squared of 0.03262, indicating that the independent variables could only explain approximately 3.3% of the variability in ppltrst.
+
+At the moment, I recognized that eliminating variables may increase the model's performance. I conducted a third model, predicting imbgeco but this time with only agea and eduyrs as independent variables. I saw a significant improvement in coefficients and p-values. Both agea and eduyrs remained highly significant (p-values \< 2e-16), and the model had a slightly improved R-squared of 0.08349, suggesting that these two factors explained 8.3% of the variation in imbgeco. The elimination of hhmmb and essround had less of an influence on the model than I had anticipated, indicating their minor role in explaining the target variable when paired with agea and eduyrs.
+
+I proceeded to explore by including a new interaction term, age_trust_diff, in a new model for predicting ppltrst. This new model, which includes age_trust_diff, hhmb, agea, eduyrs, and essround, produced intriguing findings. The age_trust_diff coefficient showed a significant estimate of -1 (p-value \< 2e-16), demonstrating a strong negative connection with ppltrst. Agea was likewise very significant, but hhmmb and eduyrs were not; hhmmb had a non-significant p-value of 0.4664, while eduyrs had a p-value of 0.6852. The essround variable was significant this time, with a p-value of 0.0198, suggesting its importance in explaining ppltrst. This model also has an R-squared of one, which is exceptional and implies that the model completely matches the data, most likely due to the great precision of the estimations, which might imply possible multicollinearity difficulties.
+
+subsequently I developed a model using imbgeco as the dependent variable and age_imbgeco_diff, hhmmb, agea, eduyrs, and essround as the independent variables. Like the prior model, age_imbgeco_diff had a coefficient of -1 and was very significant. However, hhmmb and eduyrs exhibited non-significant p-values (0.5429 and 0.4731, respectively), but agea was extremely significant. Similar to the prior model, this model attained an R-squared of one, indicating overfitting owing to excellent model predictions.
+
+From this series of models, I discovered that the basic variables agea and eduyrs were consistently good predictors of imbgeco and ppltrst. Removing hhmmb and essround produced a better-fitting model for imbgeco but did not have the same good effect on ppltrst. Furthermore, including new variables such as age_trust_diff and age_imbgeco_diff provided intriguing insights into the links between age disparities and trust, while the model fit increased to an unreasonable degree (R-squared = 1), indicating probable overfitting.
+
+7.  What statistic could be used to compare the performance of the models obtained in item 7? Based on this, what would be their ranking?
+
+```         
+In this analysis, I utilized Adjusted R-squared values to evaluate and rank several models based on their ability to explain variance in the dependent variable.
+
+1.  Mode1 and Mode2: Both models have an adjusted R-squared value of 1.000000e+00, indicating a perfect fit, and hence rank first. These models account for 100% of the variability in the dependent variable.
+
+2.  lm_multiple1: With an adjusted R-squared value of 0.0859 (8.59%), this model ranks third, suggesting that it explains a little fraction of the variability in the dependent variable.
+
+3.  lm_multiple3: With an adjusted R-squared value of 0.0834 (8.34%), this model ranks fourth, slightly behind lm_multiple1, indicating that it explains a similar, but slightly smaller, percentage of the variance.
+
+4.  lm_multiple2: With an adjusted R-squared value of 0.0325 (3.25%), this model ranks fifth, accounting for a smaller proportion of the variability.
+
+5.  lm_multiple4: With an adjusted R-squared value of 2.794248e-05 (\~0%), this model ranks 6th, indicating low explanatory power.\
+    \
+    Ranking Description:
+
+    1.  Mode1 = Mode 2 (Rank 1)
+    2.  lm_multiple1 (Rank 3)
+    3.  lm_multiple3 (Rank 4)
+    4.  lm_multiple2 (Rank 5)
+    5.  lm_multiple4 (Rank 6)
+```
+
+<!-- -->
+
+9.  For each model obtained in item 7, produce a scatter plot of “dependent variable” vs. residuals, in which each of the elements of the model's training sample is represented. Can you observe any pattern?
+
+In this analysis, residual plots have been developed for multiple regression models utilizing various predictor variables such as imbgeco (immigration is bad for the economy) and ppltrst (people trust). The purpose was to see if the residuals were randomly distributed, suggesting a well-fitted model, or if there were any patterns that suggested possible breaches of regression assumptions.
+
+The residual plot for lm_multiple1, which takes imbgeco as an independent variable, reveals that residuals are randomly distributed around the zero line. This shows that the model does not show strong symptoms of heteroscedasticity, which means that the error variance remains relatively consistent across predictor values. Similarly, the residual plot for lm_multiple2, which utilizes ppltrst as a predictor, shows that the residuals are dispersed with no discernible pattern. However, some clustering is seen in specific places, which might imply minor nonlinearity in the predictor-dependent variable connection.
+
+For lm_multiple3, where imbgeco is used as an independent variable but with a different set of predictors, the residual plot shows a little uneven distribution, suggesting that residual variance may not be totally constant. This may imply the presence of heteroscedasticity, necessitating additional examination. In comparison, the residual plot for lm_multiple4, which adds ppltrst as a predictor, has more dispersion in some locations, highlighting concerns about the model's fit across different independent variable values.
